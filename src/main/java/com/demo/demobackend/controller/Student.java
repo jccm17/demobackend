@@ -1,5 +1,6 @@
 package com.demo.demobackend.controller;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.demo.demobackend.model.student;
@@ -15,16 +16,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/student")
-@CrossOrigin
-public class Student {
+@CrossOrigin(origins = {"*"})
+public class Student implements Serializable{
 
     @Autowired
     private Studentservice studentService;
 
     @PostMapping("/add")
-    public String add(@RequestBody student Student) {
-        studentService.saveStudent(Student);
-        return "New student is added";
+    public student add(@RequestBody student Student) {
+        return studentService.saveStudent(Student);
+        //return "New student is added";
     }
 
     @GetMapping("/getAll")
